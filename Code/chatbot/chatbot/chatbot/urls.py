@@ -1,9 +1,8 @@
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
-from . import views
+from bschat import views as bsc
 
 urlpatterns = [
-    url(r'', include('chatbot.urls')),
-    url(r'^keyboard/', views.keyboad)
+    url(r'^keyboard/', bsc.keyboard)
 ]
