@@ -1,0 +1,6 @@
+django
+aniso8601
+gunicorn
+Jinja2
+six
+Werkzeug
