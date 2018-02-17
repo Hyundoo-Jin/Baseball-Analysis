@@ -14,13 +14,12 @@ def message(request):
     return_json_str = json.loads(message)
     return_str = return_json_str['content']
     if return_str.isdigit() :
-        request.session['season'] = int(return_str)
         cursor = connection.cursor()
-        cursor.execute('select teamid from Teams where wswin = 1 and yearid = ' + int(return_str))
-        team = cursor.fetch()
+        cursor.execute('select NAME from Teams where wswin = "Y" and yearid = ' + return_str)
+        team = cursor.fetchall()[0][0]
         return JsonResponse({
             'message' : {
-                'text' : str(request.session['season']) + '시즌의 우승팀은 ' + team + '입니다.'
+                'text' : return_str + '시즌의 우승팀은 ' + team + '입니다.'
             }
         })
     if '시즌' in return_str :
