@@ -6,10 +6,8 @@ from django.db import connection
 def keyboard(request):
     return JsonResponse({
         'message': {
-            'text': "원하는 기능을 선택해주세요."
-        },
-        'type': 'buttons',
-        'buttons': ['팀 검색', '시즌 검색']
+            'text' : '안녕하세요? 시즌별 메이저리그 팀 성적을 알려드리는 챗봇입니다.'
+        }
     })
 
 
@@ -20,23 +18,10 @@ def message(request):
     return_str = return_json_str['content']
 
     requestmode = return_str.encode('utf-8')
-    if requestmode == '팀 검색' :
-        return JsonResponse({
-            'message': {
-                'text': "검색을 원하는 팀의 리그를 선택해주세요."
-            },
-            'keyboard': {
-                'type': 'buttons',
-                'buttons': ['American League', 'National League']
-                }
-            })
-    elif requestmode == '시즌 검색' :
-        return JsonResponse({
-            'message': {
-                'text': "검색을 원하는 시즌을 입력해주세요."
-                        "ex) 13 -> 2013시즌, 10 -> 2010시즌"
-            },
-            'keyboard': {
-                'type': 'text'
-            }
-        })
+    if '시즌' in requestmode :
+        season = int(requestmode[requestmode.find('시즌') - 1 : requestmode.find('시즌')])
+    return JsonResponse({
+        'message' : {
+            'text' : season
+        }
+    })
