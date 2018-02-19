@@ -60,6 +60,16 @@ def message(request):
                 'text': result
             }
         })
+    elif(return_str.find("최고")>-1 or return_str.find("mvp")>-1 and return_str[:4].isdigit()):
+        cursor = connection.cursor()
+        cursor.execute('select playerID from AwardsPlayers where awardID = "World Series MVP" and yearID = ' + return_str[:4])
+        player = cursor.fetchall()[0][0]
+        return JsonResponse({
+            'message' : {
+                'text' : return_str[:4] + '시즌 월드시리즈 MVP는 ' + player[0:-2] + ' 입니다'
+            }
+        })
+
     elif(return_str.find("안녕")>-1 or return_str.find("하이")>-1):
         return JsonResponse({
         'message' : {
