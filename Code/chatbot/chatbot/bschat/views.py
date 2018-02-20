@@ -18,7 +18,7 @@ def message(request):
     message = ((request.body).decode('utf-8'))
     return_json_str = json.loads(message)
     return_str = return_json_str['content']
-    if(return_str.find(u"선수")>-1):
+    if(return_str.find(u"야구")>-1):
         return JsonResponse({
         'message' : {
             'text' : '지구별 우승인지 월드시리지 우승인지를 적어주세요!'
